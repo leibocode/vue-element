@@ -48,7 +48,7 @@
 							</li>
 						</template>
 					</li>
-				</ul>
+				</ul> 
 			</aside>
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
@@ -70,70 +70,76 @@
 		</el-col>
 	</el-row>
 </template>
-<<script>
-export default {
-     data () {
-         return {
-             sysName:'VUE',
-             collapsed:false,
-             sysUserName:'',
-             sysUserAvatar:'',
-             form:{
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-             }
-         }
-     },
-     methods:{
-         onSubmit () {
-             console.log("submit");
-         },
-         handleopen () {
 
-         },
-         handleclose () {
+<script>
+	export default {
+		data() {
+			return {
+				sysName:'VUEADMIN',
+				collapsed:false,
+				sysUserName: '',
+				sysUserAvatar: '',
+				form: {
+					name: '',
+					region: '',
+					date1: '',
+					date2: '',
+					delivery: false,
+					type: [],
+					resource: '',
+					desc: ''
+				}
+			}
+		},
+		methods: {
+			onSubmit() {
+				console.log('submit!');
+			},
+			handleopen() {
+				//console.log('handleopen');
+			},
+			handleclose() {
+				//console.log('handleclose');
+			},
+			handleselect: function (a, b) {
+			},
+			//退出登录
+			logout: function () {
+				var _this = this;
+				this.$confirm('确认退出吗?', '提示', {
+					//type: 'warning'
+				}).then(() => {
+					sessionStorage.removeItem('user');
+					_this.$router.push('/login');
+				}).catch(() => {
 
-         },
-         handleselect:function (a,b) {
-         },
-         logout:function(){
-            let _this =this 
-            this.$comfirm('确认的删除吗？','提示',{
+				});
 
-            }).then(()=>{
-                sessionStorage.removeItem('user')
-                _this.$router.push('/login')
-            }).catch(()=>{
 
-            })
-         },
-         collapse:function () {
-            this.collapsed=!this.collapsed;
-         },
-         showmenu(i,status) {
-             this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
-         }
-     },
-     mounted() {
+			},
+			//折叠导航栏
+			collapse:function(){
+				this.collapsed=!this.collapsed;
+			},
+			showMenu(i,status){
+				this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
+			}
+		},
+		mounted() {
 			var user = sessionStorage.getItem('user');
 			if (user) {
 				user = JSON.parse(user);
 				this.sysUserName = user.name || '';
 				this.sysUserAvatar = user.avatar || '';
 			}
+
 		}
-}
+	}
+
 </script>
 
-
 <style scoped lang="scss">
-	@import '../assets/styles/vars';
+	@import '../assets/styles/vars.scss';
 	
 	.container {
 		position: absolute;
